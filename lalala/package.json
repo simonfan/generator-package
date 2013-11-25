@@ -1,0 +1,26 @@
+{
+  "name": "lalala",
+  "version": "0.0.0",
+  "main": "lib/lalala.js",
+  "description": "The best module ever.",
+  "homepage": "https://github.com//lalala",
+  "bugs": "https://github.com//lalala/issues",
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//lalala"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0"
+  }
+}
