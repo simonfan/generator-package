@@ -1,9 +1,7 @@
-/*
- * <%= name %>
- * <%= homepage %>
+/**
+ * CJS module.
  *
- * Copyright (c) <%= currentYear %> <%= props.authorName %>
- * Licensed under the <%= props.license %> license.
+ * @module <%= _.classify(name) %>
  */
 
 'use strict';
@@ -13,5 +11,5 @@ var <%= _.classify(dependency) %> = require('<%= dependency %>');
 <% }); %>
 
 exports.awesome = function() {
-  return 'awesome';
+	return 'awesome';
 };

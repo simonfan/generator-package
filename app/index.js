@@ -13,11 +13,11 @@ var PackageGenerator = module.exports = function PackageGenerator(args, options,
 	// run grunt when the scaffolding is finished.
 	this.on('end', function () {
 
-        // check environment and run tasks accordingly
-        var tasks = this._environment('browser') ? ['bower', 'live'] : ['nodeunit'];
+		// check environment and run tasks accordingly
+		var tasks = this._environment('browser') ? ['yuidoc', 'bower', 'live'] : ['yuidoc', 'nodeunit'];
 
 		// at this time the dependencies were already installed.
-		this.spawnCommand('grunt', ['bower', 'live']);
+		this.spawnCommand('grunt', tasks);
 
 	}.bind(this));
 
@@ -227,28 +227,38 @@ Templates general files at the root level:
 	index.html
 */
 
-
+/**
+Tests
+*/
 PackageGenerator.prototype.tests = function tests() {
 	this.mkdir('test');
+};
+/**
+Create test dir.
+*/
 
+PackageGenerator.prototype.nodeUnit = function nodeUnit() {
+	// if the module is for node environment, create a node unit test
+	if (this._environment('node')) {
+		this.invoke('package:nodeunit', {
+			args: ['base']
+		});
+	}
+};
+/**
+If is node environment, invoke package:nodeunit subgenerator.
+*/
+
+PackageGenerator.prototype.qUnit = function qUnit() {
 	// if the module is for browser environment, create a qunit test
 	if (this._environment('browser')) {
 		this.invoke('package:qunit', {
 			args: ['base']
 		});
 	}
-
-	// if the module is for node environment, create a node unit test
-	if (this._environment('node')) {
-        this.invoke('package:nodeunit', {
-            args: ['base']
-        });
-	}
 };
 /**
-Test related stuff:
-	invoke nodeunit
-	invoke qunit
+If is browser environment, invoke package:qunit subgenerator.
 */
 
 
@@ -257,6 +267,14 @@ PackageGenerator.prototype.demo = function demo() {
 };
 /**
 Directory to hold demos.
+*/
+
+
+PackageGenerator.prototype.docs = function docs() {
+	this.mkdir('docs');
+};
+/**
+Create needed stuff for yui docs.
 */
 
 PackageGenerator.prototype.src = function src() {
@@ -284,14 +302,6 @@ Templates the main package file.
 Selects the right source template according to the environments
 the user selected.
 */
-
-
-
-
-
-
-
-
 
 
 PackageGenerator.prototype.projectfiles = function projectfiles() {

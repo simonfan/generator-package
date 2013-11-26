@@ -7,6 +7,8 @@
 		"grunt-contrib-connect": "*",
 		"grunt-bower-requirejs": "*",
 		"grunt-contrib-watch": "*",
-        "grunt-contrib-nodeunit": "*"
+		"grunt-contrib-nodeunit": "*",
+		"grunt-contrib-yuidoc": "*",
+        "grunt-contrib-jshint": "*"
 	}
 }

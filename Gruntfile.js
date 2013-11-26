@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
 			// generators
 			app: {
-				src: ['app/*.js']
+				src: ['app/*.js','app/templates/_Gruntfile.*.js','_amdconfig.js']
 			},
 
 			qunit: {

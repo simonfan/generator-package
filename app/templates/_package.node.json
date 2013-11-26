@@ -5,6 +5,8 @@
 	"devDependencies": {
 		"grunt": "*",
 		"grunt-contrib-watch": "*",
-        "grunt-contrib-nodeunit": "*"
+		"grunt-contrib-nodeunit": "*",
+		"grunt-contrib-yuidoc": "*",
+        "grunt-contrib-jshint": "*"
 	}
 }

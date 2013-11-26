@@ -3,7 +3,9 @@ Gruntfile designed to work for modules that work on browser and node.
 */
 var path = require('path');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+
+	'use strict';
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -26,27 +28,59 @@ module.exports = function(grunt) {
 			}
 		},
 
+		nodeunit: {
+			files: ['test/nodeunit/*.js']
+		},
+
+
+		yuidoc: {
+			compile: {
+				name: '<%= pkg.name %>',
+				description: '<%= pkg.description %>',
+				version: '<%= pkg.version %>',
+				url: '<%= pkg.homepage %>',
+				options: {
+					paths: 'src/',
+				//	themedir: 'path/to/custom/theme/',
+					outdir: 'docs/'
+				}
+			}
+		},
+
+
+		jshint: {
+			options: {
+				jshintrc: '.jshintrc'
+			},
+			gruntfile: {
+				src: 'Gruntfile.js'
+			},
+
+			// tests
+			test: {
+				src: ['test/**/*.js']
+			},
+
+			// src
+			src: {
+				src: ['src/<%= name %>.js']
+			}
+		},
+
 		watch: {
 			live: {
-				files: ['<%= name %>.js','test/**','demo/**'],
+				files: ['src/<%= name %>.js', 'test/**', 'demo/**'],
 				options: {
 					livereload: true
-				}
+				},
+				tasks: ['jshint', 'nodeunit']
 			},
 
 			bower: {
 				files: ['bower.json'],
 				tasks: ['bower']
-			},
-
-            nodeunit: {
-
-            }
+			}
 		},
-
-        nodeunit: {
-            files: ['test/nodeunit/*.js']
-        },
 	});
 
 	/**
@@ -54,6 +88,8 @@ module.exports = function(grunt) {
 	 */
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	grunt.loadNpmTasks('grunt-bower-requirejs');
 	/**
@@ -61,13 +97,13 @@ module.exports = function(grunt) {
 	configuration script (amdconfig.js).
 	*/
 
-    grunt.loadNpmTasks('grunt-contrib-nodeunit');
+	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
 
 	/**
 	Auxiliary task that starts a server in a child process.
 	*/
-	grunt.registerTask('child-process-server', function() {
+	grunt.registerTask('child-process-server', function () {
 		// start the server on a child process
 		// so that it does not block the thread.
 		grunt.util.spawn({
@@ -77,11 +113,11 @@ module.exports = function(grunt) {
 	});
 
 	// full live
-	grunt.registerTask('live',['child-process-server','watch:live']);
+	grunt.registerTask('live', ['child-process-server', 'watch:live']);
 	/**
 	[1] Starts a server as a child process
 	[2] Starts watching files.
 	*/
 
-	grunt.registerTask('default',['bower']);
+	grunt.registerTask('default', ['bower', 'yuidoc']);
 };

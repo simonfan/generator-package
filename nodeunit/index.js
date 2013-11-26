@@ -51,6 +51,9 @@ Create the 'test/nodeunit' dir.
 
 NodeunitTestGenerator.prototype.testFile = function testFile() {
 	this.template('_test.js', 'test/nodeunit/' + this.name + '.js');
+
+
+    logger.green('Nodeunit ' + this.name + ' test file was successfully created.');
 };
 /**
 Create the test file.

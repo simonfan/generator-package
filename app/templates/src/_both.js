@@ -1,3 +1,9 @@
+/**
+ * AMD and CJS module.
+ *
+ * @module <%= _.classify(name) %>
+ */
+
 (function(name, factory) {
 
 	///////////////////
