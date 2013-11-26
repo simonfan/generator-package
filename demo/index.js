@@ -4,7 +4,9 @@ var util = require('util'),
 	yeoman = require('yeoman-generator'),
 	path = require('path'),
 	fs = require('fs'),
-	jsdom = require('jsdom');
+	jsdom = require('jsdom'),
+
+    logger = require('chalk-logger');
 
 var DemoGenerator = module.exports = function DemoGenerator(args, options, config) {
 	// By calling `NamedBase` here, we get the argument to the subgenerator call
@@ -35,8 +37,10 @@ DemoGenerator.prototype.files = function files() {
 };
 
 DemoGenerator.prototype.linkIndex = function() {
+    logger.green('Updating index.html to add link to demo ...');
 
-	var devIndexFilePath = path.join(this.destinationRoot(), 'index.html');
+    var cb = this.async(),
+        devIndexFilePath = path.join(this.destinationRoot(), 'index.html');
 
 	jsdom.env({
 		file: devIndexFilePath,
@@ -47,10 +51,10 @@ DemoGenerator.prototype.linkIndex = function() {
 
 			$('#links').append('<li><a href="'+ href +'">Demo: ' + this.name + '</a></li>');
 
-			console.log('Update index.html');
-
 			// overwrite the index.html file without notifying the user
 			fs.writeFileSync(path.join(this.destinationRoot(), 'index.html'), window.document.doctype + window.document.innerHTML);
+
+            cb();
 
 		}.bind(this),
 	});

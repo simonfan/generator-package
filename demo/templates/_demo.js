@@ -1,6 +1,8 @@
 define(['<%= moduleName %>'], function(<%= _.classify(moduleName) %>) {
 
-	console.log('<%= _.humanize(name) %> demo running.');
+    var msg = '<%= _.humanize(name) %> demo of the <%= moduleName %> module running!';
 
-	alert('<%= _.humanize(name) %>');
+	console.log(msg);
+
+	alert(msg);
 });
