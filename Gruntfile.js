@@ -14,11 +14,23 @@ module.exports = function (grunt) {
 			gruntfile: {
 				src: 'Gruntfile.js'
 			},
+
+			// tests
+			test: {
+				src: ['test/*.js']
+			},
+
+			// generators
 			app: {
 				src: ['app/*.js']
 			},
-			test: {
-				src: ['test/*.js']
+
+			qunit: {
+				src: ['qunit/*.js']
+			},
+
+			nodeunit: {
+				src: ['nodeunit/*.js']
 			}
 		},
 		watch: {
@@ -26,13 +38,25 @@ module.exports = function (grunt) {
 				files: '<%= jshint.gruntfile.src %>',
 				tasks: ['jshint:gruntfile']
 			},
+			test: {
+				files: '<%= jshint.test.src %>',
+				tasks: ['jshint:test', 'nodeunit']
+			},
+
+			// generators
 			app: {
 				files: '<%= jshint.app.src %>',
 				tasks: ['jshint:app', 'nodeunit']
 			},
-			test: {
-				files: '<%= jshint.test.src %>',
-				tasks: ['jshint:test', 'nodeunit']
+
+			qunit: {
+				files: '<%= jshint.qunit.src %>',
+				tasks: ['jshint:qunit']
+			},
+
+			nodeunit: {
+				files: '<%= jshint.nodeunit.src %>',
+				tasks: ['jshint:nodeunit']
 			}
 		}
 	});

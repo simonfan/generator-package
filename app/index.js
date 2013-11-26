@@ -4,14 +4,22 @@ var path = require('path');
 
 var yeoman = require('yeoman-generator'),
 	logger = require('chalk-logger'),
-    chalk = require('chalk');
+	chalk = require('chalk');
 
 var PackageGenerator = module.exports = function PackageGenerator(args, options, config) {
 	yeoman.generators.Base.apply(this, arguments);
 
+
+	// run grunt when the scaffolding is finished.
 	this.on('end', function () {
-		this.installDependencies({ skipInstall: options['skip-install'] });
-	});
+
+        // check environment and run tasks accordingly
+        var tasks = this._environment('browser') ? ['bower', 'live'] : ['nodeunit'];
+
+		// at this time the dependencies were already installed.
+		this.spawnCommand('grunt', ['bower', 'live']);
+
+	}.bind(this));
 
 	this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
@@ -43,7 +51,7 @@ Set destinationRoot relative to the originalDestinationRoot.
 
 
 PackageGenerator.prototype._environment = function _environment(env) {
-    var _ = this._;
+	var _ = this._;
 
 	if (_.isArray(env)) {
 		return _.every(env, this._environment.bind(this));
@@ -53,6 +61,13 @@ PackageGenerator.prototype._environment = function _environment(env) {
 };
 /**
 Checks if a given environment was selected by the user during prompts.
+*/
+
+PackageGenerator.prototype._environmentType = function _environmentType() {
+	return this._environment(['browser', 'node']) ? 'both' : this._environment('browser') ? 'browser' : 'node';
+};
+/**
+Returns a string that describes the environment type.
 */
 
 ///////// Private methods //////////
@@ -100,7 +115,10 @@ PackageGenerator.prototype.askFor = function askFor() {
 		when: function (answers) {
 			return _.contains(answers.environments, 'browser');
 		},
-		message: 'What ' + chalk.blue('BOWER') + ' components does this component depend upon?'
+		message: 'What ' + chalk.blue('BOWER') + ' components does this component depend upon?',
+		default: function (answers) {
+			return answers.npmDependenciesInput || '';
+		}
 	});
 
 	// save options
@@ -131,15 +149,18 @@ NPM dependencies
 	available through this.npmDependencies
 */
 PackageGenerator.prototype.npmFiles = function npmFiles() {
+	// choose package.json template file based on environment
+	var envType = this._environmentType();
+
 	// npm stuff is templated anyway because of grunt.
-	this.template('_package.json', 'package.json');
+	this.template('_package.' + envType + '.json', 'package.json');
 };
 
 PackageGenerator.prototype.npmDependenciesInstall = function npmDependenciesInstall() {
 	if (this.npmDependenciesInput) {
 		var cb = this.async();
 
-		logger.yellow('Installing NPM dependencies');
+		logger.yellow('Installing NPM dependencies ...');
 
 		this.npmInstall(this.npmDependenciesInput, { save: true }, cb);
 	}
@@ -151,6 +172,8 @@ PackageGenerator.prototype.npmDependenciesRead = function npmDependenciesRead() 
 		pkg = JSON.parse(pkg);
 
 		this.npmDependencies = pkg.dependencies;
+	} else {
+		this.npmDependencies = {};
 	}
 };
 
@@ -175,7 +198,7 @@ PackageGenerator.prototype.bowerDependenciesInstall = function bowerDependencies
 	if (this.bowerDependenciesInput) {
 		var cb = this.async();
 
-		logger.yellow('Installing bower dependencies for your package ...');
+		logger.yellow('Installing BOWER dependencies ...');
 
 		this.bowerInstall(this.bowerDependenciesInput, { save: true }, cb);
 	}
@@ -188,30 +211,44 @@ PackageGenerator.prototype.bowerDependenciesRead = function bowerDependenciesRea
 		var bower = JSON.parse(this.readFileAsString(path.join(this.destinationRoot(), 'bower.json')));
 
 		this.bowerDependencies = bower.dependencies;
+	} else {
+		this.bowerDependencies = {};
 	}
 };
 
 
+PackageGenerator.prototype.rootFiles = function rootFiles() {
+	this.template('_amdconfig.js', 'amdconfig.js');
+	this.template('_index.html', 'index.html');
+};
+/**
+Templates general files at the root level:
+	amdconfig.js
+	index.html
+*/
 
-/// debugging ///
-PackageGenerator.prototype.log  = function() {
-	console.log(this.npmDependencies);
-	console.log(this.bowerDependencies);
-}
-/// debugging ///
 
-
-
-PackageGenerator.prototype.test = function test() {
+PackageGenerator.prototype.tests = function tests() {
 	this.mkdir('test');
 
-	this.mkdir('test/nodeunit');
-	this.mkdir('test/qunit');
+	// if the module is for browser environment, create a qunit test
+	if (this._environment('browser')) {
+		this.invoke('package:qunit', {
+			args: ['base']
+		});
+	}
+
+	// if the module is for node environment, create a node unit test
+	if (this._environment('node')) {
+        this.invoke('package:nodeunit', {
+            args: ['base']
+        });
+	}
 };
 /**
 Test related stuff:
-    nodeunit
-    qunit
+	invoke nodeunit
+	invoke qunit
 */
 
 
@@ -227,20 +264,20 @@ PackageGenerator.prototype.src = function src() {
 
 	var file = 'src/' + this.name + '.js';
 
-	if (this._environment(['node','browser'])) {
-        // both
+	if (this._environment(['node', 'browser'])) {
+		// both
 		this.template('src/_both.js', file);
 
 	} else if (this._environment('node')) {
-        // node only
+		// node only
 		this.template('src/_node.js', file);
 
 	} else if (this._environment('browser')) {
-        // browser
+		// browser
 		this.template('src/_amd.js', file);
 
 	}
-}
+};
 /**
 Templates the main package file.
 
@@ -258,12 +295,36 @@ the user selected.
 
 
 PackageGenerator.prototype.projectfiles = function projectfiles() {
-    this.template('_README.md', 'README.md');
+	this.template('_README.md', 'README.md');
 
-    this.template('_Gruntfile.js', 'Gruntfile.js');
 
-    this.copy('gitignore', '.gitignore');
+	var envType = this._environmentType();
+
+	this.template('_Gruntfile.' + envType + '.js', 'Gruntfile.js');
+
+	this.copy('gitignore', '.gitignore');
 
 	this.copy('editorconfig', '.editorconfig');
 	this.copy('jshintrc', '.jshintrc');
 };
+/**
+
+*/
+
+PackageGenerator.prototype.finish = function finish() {
+	this._source('.');
+	this._destination('.');
+
+	var cb = this.async();
+
+	this.installDependencies({
+		npm: true,
+		bower: true,
+
+		callback: cb,
+	});
+};
+/**
+Install all dependencies synchronously, so that on end,
+grunt commands may be run.
+*/

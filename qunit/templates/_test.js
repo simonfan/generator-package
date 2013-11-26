@@ -1,4 +1,4 @@
-define(['<%= componentName %>'], function(<%= _.classify(componentName.replace(/\./g,'-')) %>) {
+define(['<%= moduleName %>'], function(<%= _.classify(moduleName.replace(/\./g,'-')) %>) {
 
 return function() {
 

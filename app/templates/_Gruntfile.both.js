@@ -1,3 +1,6 @@
+/**
+Gruntfile designed to work for modules that work on browser and node.
+*/
 var path = require('path');
 
 module.exports = function(grunt) {
@@ -12,20 +15,20 @@ module.exports = function(grunt) {
 					port: 8000,
 					keepalive: true,
 					livereload: true,
-					open: 'http://localhost:8000/dev/index.html',
+					open: 'http://localhost:8000',
 				}
 			},
 		},
 
 		bower: {
 			target: {
-				rjsConfig: 'dev/main.js',
+				rjsConfig: 'amdconfig.js',
 			}
 		},
 
 		watch: {
 			live: {
-				files: ['<%= name.machine %>.js','dev/tests/**','dev/demo/**'],
+				files: ['<%= name %>.js','test/**','demo/**'],
 				options: {
 					livereload: true
 				}
@@ -34,8 +37,16 @@ module.exports = function(grunt) {
 			bower: {
 				files: ['bower.json'],
 				tasks: ['bower']
-			}
-		}
+			},
+
+            nodeunit: {
+
+            }
+		},
+
+        nodeunit: {
+            files: ['test/nodeunit/*.js']
+        },
 	});
 
 	/**
@@ -45,6 +56,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.loadNpmTasks('grunt-bower-requirejs');
+	/**
+	Gets dependencies from bower.json and puts them into the require.js
+	configuration script (amdconfig.js).
+	*/
+
+    grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
 
 	/**
@@ -52,6 +69,7 @@ module.exports = function(grunt) {
 	*/
 	grunt.registerTask('child-process-server', function() {
 		// start the server on a child process
+		// so that it does not block the thread.
 		grunt.util.spawn({
 			cmd: 'grunt',
 			args: ['connect']
@@ -60,6 +78,10 @@ module.exports = function(grunt) {
 
 	// full live
 	grunt.registerTask('live',['child-process-server','watch:live']);
+	/**
+	[1] Starts a server as a child process
+	[2] Starts watching files.
+	*/
 
 	grunt.registerTask('default',['bower']);
 };

@@ -26,19 +26,10 @@ exports.loading = {
 		done();
 	},
 	loading: function (t) {
-		var Generator = require('../app/index.js');
+		var Generator = require('../qunit/index.js');
 
 		t.ok(Generator, 'Generator loaded without any explosions! :D');
 
 		t.done();
 	}
-};
-
-
-exports.invocation = function (t) {
-
-	var Generator = require('../app/index.js');
-	t.ok(Generator);
-
-	t.done();
 };
