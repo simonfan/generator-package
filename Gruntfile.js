@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
 			// generators
 			app: {
-				src: ['app/*.js','app/templates/_Gruntfile.*.js','_amdconfig.js']
+				src: ['app/*.js', '_amdconfig.js']
 			},
 
 			qunit: {
@@ -65,6 +65,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'nodeunit']);

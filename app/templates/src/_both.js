@@ -1,3 +1,7 @@
+//     <%= _.classify(name) %>
+//     (c) <%= author %>
+//     <%= _.classify(name) %> is licensed under the <%= license %> terms.
+
 /**
  * AMD and CJS module.
  *

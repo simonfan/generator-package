@@ -9,6 +9,7 @@
 		"grunt-contrib-watch": "*",
 		"grunt-contrib-nodeunit": "*",
         "grunt-contrib-yuidoc": "*",
-        "grunt-contrib-jshint": "*"
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-requirejs": "*"
 	}
 }

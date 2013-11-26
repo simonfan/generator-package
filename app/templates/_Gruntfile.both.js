@@ -81,6 +81,50 @@ module.exports = function (grunt) {
 				tasks: ['bower']
 			}
 		},
+
+		requirejs: {
+			// run r.js to generate a single file as the output
+			// minifying and inlining all dependencies.
+			file: {
+				options: {
+					// base url where to look for module files
+					// and relative to which the module paths will be defined
+					// (must coincide with that defined in mainConfigFile)
+					baseUrl: './',
+					// module name
+					name: '<%= name %>',
+					// output here
+					out: 'built/<%= name %>.built.js',
+					// config file
+					mainConfigFile: 'amdconfig.js',
+
+					// include these modules
+					include: [],
+
+					// exclude these modules AND their dependencies
+					// (excluding your bower dependencies)
+					exclude: <%= JSON.stringify(_.keys(bowerDependencies)) %>,
+
+					// excludeShallow
+					excludeShallow: [],
+
+					optimize: 'uglify2',
+				}
+			},
+
+			project: {
+				options: {
+					// source files
+					appDir: 'src/',
+					// output here:
+					dir: 'built/project/',
+					mainConfigFile: 'amdconfig.js',
+
+					// do not copy these files
+					fileExclusionRegExp: /^\./,
+				}
+			}
+		}
 	});
 
 	/**
@@ -89,7 +133,8 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 
 	grunt.loadNpmTasks('grunt-bower-requirejs');
 	/**
@@ -119,5 +164,5 @@ module.exports = function (grunt) {
 	[2] Starts watching files.
 	*/
 
-	grunt.registerTask('default', ['bower', 'yuidoc']);
+	grunt.registerTask('default', ['bower', 'yuidoc', 'nodeunit', 'requirejs', 'live']);
 };

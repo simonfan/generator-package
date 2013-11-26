@@ -12,12 +12,8 @@ var PackageGenerator = module.exports = function PackageGenerator(args, options,
 
 	// run grunt when the scaffolding is finished.
 	this.on('end', function () {
-
-		// check environment and run tasks accordingly
-		var tasks = this._environment('browser') ? ['yuidoc', 'bower', 'live'] : ['yuidoc', 'nodeunit'];
-
 		// at this time the dependencies were already installed.
-		this.spawnCommand('grunt', tasks);
+		this.spawnCommand('grunt');
 
 	}.bind(this));
 
@@ -120,6 +116,23 @@ PackageGenerator.prototype.askFor = function askFor() {
 			return answers.npmDependenciesInput || '';
 		}
 	});
+
+
+	/**
+	 * Author related prompts
+	 */
+	prompts.push({
+		name: 'author',
+		message: 'Author'
+	});
+
+	// licensing
+	prompts.push({
+		name: 'license',
+		message: 'License',
+		default: 'MIT'
+	});
+
 
 	// save options
 	this.prompt(prompts, function (answers) {
@@ -276,7 +289,7 @@ PackageGenerator.prototype.demo = function demo() {
 
 		this.invoke('package:demo', {
 			args: ['main']
-		}, cb)
+		}, cb);
 	}
 };
 /**
