@@ -240,9 +240,12 @@ Create test dir.
 PackageGenerator.prototype.nodeUnit = function nodeUnit() {
 	// if the module is for node environment, create a node unit test
 	if (this._environment('node')) {
+
+		var cb = this.async();
+
 		this.invoke('package:nodeunit', {
-			args: ['base']
-		});
+			args: ['base'],
+		}, cb);
 	}
 };
 /**
@@ -252,9 +255,12 @@ If is node environment, invoke package:nodeunit subgenerator.
 PackageGenerator.prototype.qUnit = function qUnit() {
 	// if the module is for browser environment, create a qunit test
 	if (this._environment('browser')) {
+
+		var cb = this.async();
+
 		this.invoke('package:qunit', {
-			args: ['base']
-		});
+			args: ['base'],
+		}, cb);
 	}
 };
 /**
@@ -264,6 +270,14 @@ If is browser environment, invoke package:qunit subgenerator.
 
 PackageGenerator.prototype.demo = function demo() {
 	this.mkdir('demo');
+
+	if (this._environment('browser')) {
+		var cb = this.async();
+
+		this.invoke('package:demo', {
+			args: ['main']
+		}, cb)
+	}
 };
 /**
 Directory to hold demos.
