@@ -49,7 +49,7 @@ module.exports = function (grunt) {
 					stdin: true,
 					stderr: true,
 					failOnError: true,
-                    callback: function(err, stdout, stderr, cb) {
+                    callback: function (err, stdout, stderr, cb) {
 
 
                         console.log('Finished running');
