@@ -1,7 +1,6 @@
 /**
 Gruntfile designed for browser-only modules.
 */
-var path = require('path');
 
 module.exports = function (grunt) {
 
@@ -48,7 +47,8 @@ module.exports = function (grunt) {
 
 		jshint: {
 			options: {
-				jshintrc: '.jshintrc'
+				jshintrc: '.jshintrc',
+                force: true,
 			},
 			gruntfile: {
 				src: 'Gruntfile.js'
@@ -67,11 +67,11 @@ module.exports = function (grunt) {
 
 		watch: {
 			live: {
-				files: ['src/<%= name %>.js', 'test/**', 'demo/**'],
+				files: ['src/<%= name %>.js', 'test/**', 'demo/**', 'Gruntfile.js'],
 				options: {
 					livereload: true
 				},
-				tasks: ['jshint', 'nodeunit']
+                tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
 			},
 
 			bower: {

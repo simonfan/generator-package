@@ -1,7 +1,9 @@
 {
 	"name": "<%= name %>",
 	"version": "0.0.0",
-	"dependencies": {},
+	"dependencies": {
+        "amdefine": ">=0.1.0"
+    },
 	"devDependencies": {
 		"grunt": "*",
 		"grunt-contrib-connect": "*",

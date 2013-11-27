@@ -1,7 +1,6 @@
 /**
 Gruntfile to assis node development.
 */
-var path = require('path');
 
 module.exports = function (grunt) {
 
@@ -30,7 +29,8 @@ module.exports = function (grunt) {
 
         jshint: {
             options: {
-                jshintrc: '.jshintrc'
+                jshintrc: '.jshintrc',
+                force: true,
             },
             gruntfile: {
                 src: 'Gruntfile.js'
@@ -49,8 +49,8 @@ module.exports = function (grunt) {
 
         watch: {
             live: {
-                files: ['src/<%= name %>.js', 'test/**', 'demo/**'],
-                tasks: ['jshint', 'nodeunit']
+                files: ['src/<%= name %>.js', 'test/**', 'demo/**', 'Gruntfile.js'],
+                tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
             }
         },
 	});
