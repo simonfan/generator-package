@@ -21,29 +21,30 @@
 
 			// then load the tests.json file using text plugin
 			// and load qunit
-			require(['text!test/qunit/tests.json','../../bower_components/qunit/qunit/qunit','underscore'], function(tests, undef, undef1) {
+			require(['text!test/qunit/tests.json','underscore'], function(testNames, undef) {
 
-				// only start QUnit after tests have been loaded.
-				QUnit.config.autostart = false;
-
-				var tests = JSON.parse(tests),
-					tests = _.map(tests, function(t) {
+				var testNames = JSON.parse(testNames),
+					testNames = _.map(testNames, function(t) {
 						return 'tests/' + t;
 					});
 
-				console.log('Loading ' + tests.join(', '));
+				console.log('Loading ' + testNames.join(', '));
 
 				// finally load the tests themselves
-				require(tests, function() {
-					// and run!
+				require(testNames, function() {
 
-					// after all tests have been loaded, run each of them in the order they were defined.
-					_.each(arguments, function(testcase, index) {
-					    testcase();
-					});
+					// load testcases before loading qunit
+					var testCases = arguments;
 
-					QUnit.load();
-					QUnit.start();
+					require(['../../bower_components/qunit/qunit/qunit'], function() {
+
+						QUnit.load();
+
+						// and run hte test cases
+						_.each(testCases, function(testcase, index) {
+						    testcase();
+						});
+					})
 				});
 
 			});

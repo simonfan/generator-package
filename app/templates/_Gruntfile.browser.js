@@ -92,7 +92,7 @@ module.exports = function (grunt) {
                     // module name
                     name: '<%= name %>',
                     // output here
-                    out: 'built/<%= name %>.built.js',
+                    out: 'built/<%= name %>.js',
                     // config file
                     mainConfigFile: 'amdconfig.js',
 
