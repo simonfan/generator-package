@@ -1,6 +1,7 @@
 {
 	"name": "<%= name %>",
-	"version": "0.0.0",
+	"main": "./src/<%= name %>",
+	"version": "0.1.0",
 	"dependencies": {
         "amdefine": ">=0.1.0"
     },
