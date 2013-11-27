@@ -27,21 +27,21 @@ exports.<%= _.classify(name) %> = {
     },
 
     // tests:
-    moduleLoading: function (t) {
-        var Module = require('../../src/<%= moduleName %>');
+    <%= _.classify(name) %>: function (test) {
+        var <%= _.classify(moduleName) %> = require('../../src/<%= moduleName %>');
 
-        t.ok(Module, 'Module loaded without any explosions! :D');
+        test.ok(<%= _.classify(moduleName) %>, '<%= _.classify(moduleName) %> loaded without any explosions! :D');
 
-        t.done();
+        test.done();
     }
 };
 
 /*
-exports.<%= _.classify(name) %> = function (t) {
+exports.<%= _.classify(name) %> = function (test) {
 
-    var Module = require('../src/<%= moduleName %>');
-    t.ok(Module);
+    var <%= _.classify(moduleName) %> = require('../../src/<%= moduleName %>');
+    test.ok(<%= _.classify(moduleName) %>);
 
-    t.done();
+    test.done();
 };
 */
