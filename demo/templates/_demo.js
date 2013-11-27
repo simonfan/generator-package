@@ -1,4 +1,4 @@
-define(['<%= moduleName %>'], function(<%= _.classify(moduleName) %>) {
+define(['<%= moduleName %>'], function (<%= _.classify(moduleName) %>) {
 
     var msg = '<%= _.humanize(name) %> demo of the <%= moduleName %> module running!';
 

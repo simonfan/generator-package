@@ -31,20 +31,37 @@ module.exports = function (grunt) {
 
 			nodeunit: {
 				src: ['nodeunit/*.js']
-			}
+			},
+
+
+            // temporary files
+            tmp: {
+                src: ['_tmp*/*.js', '_tmp*/src/*.js', '_tmp*/test/**.js', '_tmp*/demo/*.js']
+            }
 		},
 
 		shell: {
-			yo: {
-				command: 'yo package',
+			// run the generator
+			yoapp: {
+				command: 'mkdir _tmp && cd _tmp && yo package && cd ../',
 				options: {
 					stdout: true,
-				//	callback: cb,
-					execOptions: {
-						cwd: '.tmp',
-					}
+					stdin: true,
+					stderr: true,
+					failOnError: true,
+                    callback: function(err, stdout, stderr, cb) {
+
+
+                        console.log('Finished running');
+
+                        cb();
+                    }
 				}
-			}
+			},
+		},
+
+		clean: {
+            tmp: ['_tmp*']
 		},
 
 		watch: {
@@ -81,6 +98,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-shell');
+
+
+    // Generation testing
+    grunt.registerTask('generator-test', ['shell:yoapp', 'jshint:tmp', 'clean:tmp']);
 
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'nodeunit']);

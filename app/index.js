@@ -10,12 +10,9 @@ var PackageGenerator = module.exports = function PackageGenerator(args, options,
 	yeoman.generators.Base.apply(this, arguments);
 
 
-	// run grunt when the scaffolding is finished.
-	this.on('end', function () {
-		// at this time the dependencies were already installed.
-		this.spawnCommand('grunt');
-
-	}.bind(this));
+    this.on('end', function () {
+        logger.green('Everything set up! Try invoking grunt ...');
+    });
 
 	this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };

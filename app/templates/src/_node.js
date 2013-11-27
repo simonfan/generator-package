@@ -10,7 +10,7 @@
 
 'use strict';
 
-<% _.each(npmDependencies, function(source, dependency) { %>
+<% _.each(npmDependencies, function (source, dependency) { %>
 var <%= _.classify(dependency) %> = require('<%= dependency %>');
 <% }); %>
 

@@ -8,7 +8,7 @@
  * @module <%= _.classify(name) %>
  */
 
-(function(name, factory) {
+(function (name, factory) {
 
 	///////////////////
 	// Normalization //
@@ -25,9 +25,11 @@
 	// Normalization //
 	///////////////////
 
-})('<%= name %>', function(<%= _(bowerDependencies).keys().map(_.classify).value().join(', ') %>) {
+})('<%= name %>', function (<%= _(bowerDependencies).keys().map(_.classify).value().join(', ') %>) {
 
-	console.log('<%= _.classify(name) %> running...')
+    'use strict';
+
+	console.log('<%= _.classify(name) %> running...');
 
 	var <%= _.classify(name) %> = function <%= _.classify(name) %>() {
 
