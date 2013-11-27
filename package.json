@@ -1,50 +1,52 @@
 {
-  "name": "generator-package",
-  "version": "0.0.0",
-  "description": "A generator for Yeoman",
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "homepage": "https://github.com/simonfan/generator-package",
-  "bugs": "https://github.com/simonfan/generator-package/issues",
-  "author": {
-    "name": "",
-    "email": "",
-    "url": "https://github.com/simonfan"
-  },
-  "main": "app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/simonfan/generator-package.git"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "dependencies": {
-    "yeoman-generator": "~0.13.0",
-    "chalk": "~0.3.0",
-    "chalk-logger": "0.0.0",
-    "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-nodeunit": "~0.2.2",
-    "jsdom": "~0.8.8",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-shell": "~0.6.1"
-  },
-  "devDependencies": {
-    "mocha": "~1.12.0"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0"
-  },
-  "engines": {
-    "node": ">=0.8.0",
-    "npm": ">=1.2.10"
-  },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ]
+	"name": "generator-package",
+	"version": "0.1.0",
+	"description": "Generates requirejs and cjs packages. Also provides a package that suits both.",
+	"keywords": [
+		"yeoman-generator",
+		"commonjs",
+		"requirejs"
+	],
+	"homepage": "https://github.com/simonfan/generator-package",
+	"bugs": "https://github.com/simonfan/generator-package/issues",
+	"author": {
+		"name": "",
+		"email": "",
+		"url": "https://github.com/simonfan"
+	},
+	"main": "app/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/simonfan/generator-package.git"
+	},
+	"scripts": {
+		"test": "mocha"
+	},
+	"dependencies": {
+		"yeoman-generator": "~0.13.0",
+		"chalk": "~0.3.0",
+		"chalk-logger": "0.0.0",
+		"grunt": "~0.4.2",
+		"grunt-contrib-jshint": "~0.7.2",
+		"grunt-contrib-watch": "~0.5.3",
+		"grunt-contrib-nodeunit": "~0.2.2",
+		"jsdom": "~0.8.8",
+		"grunt-contrib-clean": "~0.5.0",
+		"grunt-shell": "~0.6.1"
+	},
+	"devDependencies": {
+		"mocha": "~1.12.0"
+	},
+	"peerDependencies": {
+		"yo": ">=1.0.0"
+	},
+	"engines": {
+		"node": ">=0.8.0",
+		"npm": ">=1.2.10"
+	},
+	"licenses": [
+		{
+			"type": "MIT"
+		}
+	]
 }
