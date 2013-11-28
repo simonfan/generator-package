@@ -1,47 +1,47 @@
 'use strict';
 
 /*
-    ======== A Handy Little Nodeunit Reference ========
-    https://github.com/caolan/nodeunit
+	======== A Handy Little Nodeunit Reference ========
+	https://github.com/caolan/nodeunit
 
-    Test methods:
-        test.expect(numAssertions)
-        test.done()
-    Test assertions:
-        test.ok(value, [message])
-        test.equal(actual, expected, [message])
-        test.notEqual(actual, expected, [message])
-        test.deepEqual(actual, expected, [message])
-        test.notDeepEqual(actual, expected, [message])
-        test.strictEqual(actual, expected, [message])
-        test.notStrictEqual(actual, expected, [message])
-        test.throws(block, [error], [message])
-        test.doesNotThrow(block, [error], [message])
-        test.ifError(value)
+	Test methods:
+		test.expect(numAssertions)
+		test.done()
+	Test assertions:
+		test.ok(value, [message])
+		test.equal(actual, expected, [message])
+		test.notEqual(actual, expected, [message])
+		test.deepEqual(actual, expected, [message])
+		test.notDeepEqual(actual, expected, [message])
+		test.strictEqual(actual, expected, [message])
+		test.notStrictEqual(actual, expected, [message])
+		test.throws(block, [error], [message])
+		test.doesNotThrow(block, [error], [message])
+		test.ifError(value)
 */
 
 exports.<%= _.classify(name) %> = {
-    setUp: function (done) {
-        // setup here
-        done();
-    },
+	setUp: function (done) {
+		// setup here
+		done();
+	},
 
-    // tests:
-    <%= _.classify(name) %>: function (test) {
-        var <%= _.classify(moduleName) %> = require('../../src/<%= moduleName %>');
+	// tests:
+	<%= _.classify(name) %>: function (test) {
+		var <%= _.classify(moduleName) %> = require('../../src/<%= moduleName %>');
 
-        test.ok(<%= _.classify(moduleName) %>, '<%= _.classify(moduleName) %> loaded without any explosions! :D');
+		test.ok(<%= _.classify(moduleName) %>, '<%= _.classify(moduleName) %> loaded without any explosions! :D');
 
-        test.done();
-    }
+		test.done();
+	}
 };
 
 /*
 exports.<%= _.classify(name) %> = function (test) {
 
-    var <%= _.classify(moduleName) %> = require('../../src/<%= moduleName %>');
-    test.ok(<%= _.classify(moduleName) %>);
+	var <%= _.classify(moduleName) %> = require('../../src/<%= moduleName %>');
+	test.ok(<%= _.classify(moduleName) %>);
 
-    test.done();
+	test.done();
 };
 */

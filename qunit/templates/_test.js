@@ -1,13 +1,13 @@
 define(['<%= moduleName %>'], function (<%= _.classify(moduleName.replace(/\./g,'-')) %>) {
-    'use strict';
+	'use strict';
 
-    return function () {
+	return function () {
 
-        QUnit.module('<%= _.humanize(name) %>');
+		QUnit.module('<%= _.humanize(name) %>');
 
-        test('<%= _.humanize(name) %>', function () {
-            ok(true);
-        });
+		test('<%= _.humanize(name) %>', function () {
+			ok(true);
+		});
 
-    }
+	}
 });
