@@ -4,7 +4,7 @@ Gruntfile to assis node development.
 
 module.exports = function (grunt) {
 
-    'use strict';
+	'use strict';
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -15,44 +15,44 @@ module.exports = function (grunt) {
 
 		yuidoc: {
 			compile: {
-				name: '<%= pkg.name %>',
-				description: '<%= pkg.description %>',
-				version: '<%= pkg.version %>',
-				url: '<%= pkg.homepage %>',
+				name: '<%= name %>',
+				version: '0.0.0',
+			//	description: '',
+			// 	url: '',
 				options: {
 					paths: 'src/',
-				//  themedir: 'path/to/custom/theme/',
+				//	themedir: 'path/to/custom/theme/',
 					outdir: 'docs/'
 				}
 			}
 		},
 
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc',
-                force: true,
-            },
-            gruntfile: {
-                src: 'Gruntfile.js'
-            },
+		jshint: {
+			options: {
+				jshintrc: '.jshintrc',
+				force: true,
+			},
+			gruntfile: {
+				src: 'Gruntfile.js'
+			},
 
-            // tests
-            test: {
-                src: ['test/**/*.js']
-            },
+			// tests
+			test: {
+				src: ['test/**/*.js']
+			},
 
-            // src
-            src: {
-                src: ['src/<%= name %>.js']
-            }
-        },
+			// src
+			src: {
+				src: ['src/<%= name %>.js']
+			}
+		},
 
-        watch: {
-            live: {
-                files: ['src/<%= name %>.js', 'test/**', 'demo/**', 'Gruntfile.js'],
-                tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
-            }
-        },
+		watch: {
+			live: {
+				files: ['src/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
+				tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
+			}
+		},
 	});
 
 	/**
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	// full live
 	grunt.registerTask('live', ['watch:live']);

@@ -1,5 +1,5 @@
 require.config({
-    // cache busting
+	// cache busting
 	urlArgs: 'bust=' + Math.random(),
 	// base url is the root.
 	baseUrl: '/',
@@ -9,7 +9,7 @@ require.config({
 		text: 'bower_components/requirejs-text/text',
 
 
-        // the module
+		// the module
 		'<%= name %>': 'src/<%= name %>',
 	},
 

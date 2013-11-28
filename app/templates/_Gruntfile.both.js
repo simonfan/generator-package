@@ -34,10 +34,10 @@ module.exports = function (grunt) {
 
 		yuidoc: {
 			compile: {
-				name: '<%= pkg.name %>',
-				description: '<%= pkg.description %>',
-				version: '<%= pkg.version %>',
-				url: '<%= pkg.homepage %>',
+				name: '<%= name %>',
+				version: '0.0.0',
+			//	description: '',
+			// 	url: '',
 				options: {
 					paths: 'src/',
 				//	themedir: 'path/to/custom/theme/',
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
 		jshint: {
 			options: {
 				jshintrc: '.jshintrc',
-                force: true,
+				force: true,
 			},
 			gruntfile: {
 				src: 'Gruntfile.js'
@@ -69,11 +69,11 @@ module.exports = function (grunt) {
 
 		watch: {
 			live: {
-				files: ['src/<%= name %>.js', 'test/**', 'demo/**', 'Gruntfile.js'],
+				files: ['amdconfig.js', 'src/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
 				options: {
 					livereload: true
 				},
-                tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
+				tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
 			},
 
 			bower: {

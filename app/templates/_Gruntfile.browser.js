@@ -33,13 +33,13 @@ module.exports = function (grunt) {
 
 		yuidoc: {
 			compile: {
-				name: '<%= pkg.name %>',
-				description: '<%= pkg.description %>',
-				version: '<%= pkg.version %>',
-				url: '<%= pkg.homepage %>',
+				name: '<%= name %>',
+				version: '0.0.0',
+			//	description: '',
+			// 	url: '',
 				options: {
 					paths: 'src/',
-				//  themedir: 'path/to/custom/theme/',
+				//	themedir: 'path/to/custom/theme/',
 					outdir: 'docs/'
 				}
 			}
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
 		jshint: {
 			options: {
 				jshintrc: '.jshintrc',
-                force: true,
+				force: true,
 			},
 			gruntfile: {
 				src: 'Gruntfile.js'
@@ -67,11 +67,11 @@ module.exports = function (grunt) {
 
 		watch: {
 			live: {
-				files: ['src/<%= name %>.js', 'test/**', 'demo/**', 'Gruntfile.js'],
+				files: ['amdconfig.js', 'src/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
 				options: {
 					livereload: true
 				},
-                tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
+				tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
 			},
 
 			bower: {
@@ -80,49 +80,49 @@ module.exports = function (grunt) {
 			}
 		},
 
-        requirejs: {
-            // run r.js to generate a single file as the output
-            // minifying and inlining all dependencies.
-            file: {
-                options: {
-                    // base url where to look for module files
-                    // and relative to which the module paths will be defined
-                    // (must coincide with that defined in mainConfigFile)
-                    baseUrl: './',
-                    // module name
-                    name: '<%= name %>',
-                    // output here
-                    out: 'built/<%= name %>.js',
-                    // config file
-                    mainConfigFile: 'amdconfig.js',
+		requirejs: {
+			// run r.js to generate a single file as the output
+			// minifying and inlining all dependencies.
+			file: {
+				options: {
+					// base url where to look for module files
+					// and relative to which the module paths will be defined
+					// (must coincide with that defined in mainConfigFile)
+					baseUrl: './',
+					// module name
+					name: '<%= name %>',
+					// output here
+					out: 'built/<%= name %>.js',
+					// config file
+					mainConfigFile: 'amdconfig.js',
 
-                    // include these modules
-                    include: [],
+					// include these modules
+					include: [],
 
-                    // exclude these modules AND their dependencies
-                    // (excluding your bower dependencies)
-                    exclude: <%= JSON.stringify(_.keys(bowerDependencies)) %>,
+					// exclude these modules AND their dependencies
+					// (excluding your bower dependencies)
+					exclude: <%= JSON.stringify(_.keys(bowerDependencies)) %>,
 
-                    // excludeShallow
-                    excludeShallow: [],
+					// excludeShallow
+					excludeShallow: [],
 
-                    optimize: 'uglify2',
-                }
-            },
+					optimize: 'uglify2',
+				}
+			},
 
-            project: {
-                options: {
-                    // source files
-                    appDir: 'src/',
-                    // output here:
-                    dir: 'built/project/',
-                    mainConfigFile: 'amdconfig.js',
+			project: {
+				options: {
+					// source files
+					appDir: 'src/',
+					// output here:
+					dir: 'built/project/',
+					mainConfigFile: 'amdconfig.js',
 
-                    // do not copy these files
-                    fileExclusionRegExp: /^\./,
-                }
-            }
-        }
+					// do not copy these files
+					fileExclusionRegExp: /^\./,
+				}
+			}
+		}
 	});
 
 	/**
@@ -131,8 +131,8 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 
 	grunt.loadNpmTasks('grunt-bower-requirejs');
 	/**
