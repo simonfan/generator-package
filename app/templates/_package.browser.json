@@ -2,6 +2,10 @@
 	"name": "<%= name %>",
 	"main": "./src/<%= name %>",
 	"version": "0.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/<%= githubUsername %>/<%= name %>.git"
+	},
 	"dependencies": {},
 	"devDependencies": {
 		"grunt": "*",
