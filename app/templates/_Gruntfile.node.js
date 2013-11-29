@@ -70,5 +70,5 @@ module.exports = function (grunt) {
 	[2] Starts watching files.
 	*/
 
-	grunt.registerTask('default', ['yuidoc', 'nodeunit']);
+	grunt.registerTask('default', ['yuidoc', 'jshint:gruntfile', 'jshint:src', 'nodeunit']);
 };
