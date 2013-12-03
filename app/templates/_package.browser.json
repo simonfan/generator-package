@@ -2,6 +2,8 @@
 	"name": "<%= name %>",
 	"main": "./src/<%= name %>",
 	"version": "0.0.0",
+
+	"description": "<%= description %>",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/<%= githubUsername %>/<%= name %>.git"
@@ -18,5 +20,9 @@
 		"should": "~2.1.0",
 		"mocha": "~1.15.0",
 		"grunt-simple-mocha": "~0.4.0"
+	},
+
+	"scripts": {
+		"test": "mocha"
 	}
 }

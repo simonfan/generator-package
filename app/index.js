@@ -135,6 +135,13 @@ PackageGenerator.prototype.askFor = function askFor() {
 		default: 'MIT'
 	});
 
+	// description
+	prompts.push({
+		name: 'description',
+		message: 'description',
+		default: 'Some module...'
+	});
+
 
 	// save options
 	this.prompt(prompts, function (answers) {
