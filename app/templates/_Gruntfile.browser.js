@@ -27,8 +27,17 @@ module.exports = function (grunt) {
 			}
 		},
 
-		nodeunit: {
-			files: ['test/nodeunit/*.js']
+		simplemocha: {
+			options: {
+			//	globals: ['should'],
+				timeout: 3000,
+				ignoreLeaks: false,
+			//	grep: '*-test',
+				ui: 'bdd',
+				reporter: 'tap'
+			},
+
+			all: { src: ['test/*.js'] }
 		},
 
 		yuidoc: {
@@ -71,7 +80,7 @@ module.exports = function (grunt) {
 				options: {
 					livereload: true
 				},
-				tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
+				tasks: ['jshint:gruntfile', 'jshint:src', 'simplemocha']
 			},
 
 			bower: {
@@ -140,8 +149,7 @@ module.exports = function (grunt) {
 	configuration script (amdconfig.js).
 	*/
 
-	grunt.loadNpmTasks('grunt-contrib-nodeunit');
-
+	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	/**
 	Auxiliary task that starts a server in a child process.
@@ -155,6 +163,10 @@ module.exports = function (grunt) {
 		});
 	});
 
+
+	// mocha tests
+	grunt.registerTask('mocha', 'simplemocha');
+
 	// full live
 	grunt.registerTask('live', ['child-process-server', 'watch:live']);
 	/**
@@ -162,5 +174,5 @@ module.exports = function (grunt) {
 	[2] Starts watching files.
 	*/
 
-	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'live']);
+	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'simplemocha', 'live']);
 };

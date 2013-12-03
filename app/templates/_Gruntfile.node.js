@@ -9,8 +9,17 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
-		nodeunit: {
-			files: ['test/nodeunit/*.js']
+		simplemocha: {
+			options: {
+			//	globals: ['should'],
+				timeout: 3000,
+				ignoreLeaks: false,
+			//	grep: '*-test',
+				ui: 'bdd',
+				reporter: 'tap'
+			},
+
+			all: { src: ['test/*.js'] }
 		},
 
 		yuidoc: {
@@ -50,7 +59,7 @@ module.exports = function (grunt) {
 		watch: {
 			live: {
 				files: ['src/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
-				tasks: ['jshint:gruntfile', 'jshint:src', 'nodeunit']
+				tasks: ['jshint:gruntfile', 'jshint:src', 'simplemocha']
 			}
 		},
 	});
@@ -59,9 +68,13 @@ module.exports = function (grunt) {
 	 * Task loading
 	 */
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-nodeunit');
+	grunt.loadNpmTasks('grunt-simple-mocha');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+
+
+	// mocha tests
+	grunt.registerTask('mocha', 'simplemocha');
 
 	// full live
 	grunt.registerTask('live', ['watch:live']);
@@ -70,5 +83,5 @@ module.exports = function (grunt) {
 	[2] Starts watching files.
 	*/
 
-	grunt.registerTask('default', ['yuidoc', 'jshint:gruntfile', 'jshint:src', 'nodeunit']);
+	grunt.registerTask('default', ['yuidoc', 'jshint:gruntfile', 'jshint:src', 'simplemocha']);
 };

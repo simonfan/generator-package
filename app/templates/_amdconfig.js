@@ -8,6 +8,8 @@ require.config({
 		requirejs: 'bower_components/requirejs/requirejs',
 		text: 'bower_components/requirejs-text/text',
 
+		mocha: 'node_modules/mocha/mocha',
+		should: 'node_modules/should/should',
 
 		// the module
 		'<%= name %>': 'src/<%= name %>',
@@ -21,6 +23,12 @@ require.config({
 		},
 		underscore: {
 			exports: '_',
+		},
+		mocha: {
+			exports: 'mocha',
+		},
+		should: {
+			exports: 'should'
 		}
 	},
 });

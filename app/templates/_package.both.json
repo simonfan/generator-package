@@ -7,16 +7,18 @@
 		"url": "https://github.com/<%= githubUsername %>/<%= name %>.git"
 	},
 	"dependencies": {
-        "amdefine": ">=0.1.0"
-    },
+		"amdefine": ">=0.1.0"
+	},
 	"devDependencies": {
-		"grunt": "*",
-		"grunt-contrib-connect": "*",
-		"grunt-bower-requirejs": "*",
-		"grunt-contrib-watch": "*",
-		"grunt-contrib-nodeunit": "*",
-		"grunt-contrib-yuidoc": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-requirejs": "*"
+		"grunt": "~0.4.2",
+		"grunt-contrib-connect": "~0.5.0",
+		"grunt-bower-requirejs": "~0.7.1",
+		"grunt-contrib-watch": "~0.5.3",
+		"grunt-contrib-yuidoc": "~0.5.0",
+		"grunt-contrib-jshint": "~0.7.2",
+		"grunt-contrib-requirejs": "~0.4.1",
+		"should": "~2.1.0",
+		"mocha": "~1.15.0",
+		"grunt-simple-mocha": "~0.4.0"
 	}
 }
