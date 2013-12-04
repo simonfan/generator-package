@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 				ignoreLeaks: false,
 			//	grep: '*-test',
 				ui: 'bdd',
-				reporter: 'tap'
+				reporter: 'dot'
 			},
 
 			all: { src: ['test/*.js'] }
@@ -175,5 +175,5 @@ module.exports = function (grunt) {
 	[2] Starts watching files.
 	*/
 
-	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'simplemocha', 'live']);
+	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'simplemocha', 'watch:live']);
 };
