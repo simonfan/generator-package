@@ -7,19 +7,39 @@ var yeoman = require('yeoman-generator'),
 	logger = require('chalk-logger');
 
 var MochaGenerator = module.exports = function MochaGenerator(args, options, config) {
-	// By calling `NamedBase` here, we get the argument to the subgenerator call
-	// as `this.name`.
-	yeoman.generators.NamedBase.apply(this, arguments);
 
-	console.log('You called the mocha subgenerator with the argument ' + this.name + '.');
+	yeoman.generators.Base.apply(this, arguments);
 
+	this.argument('name', { type: String, required: false });
+
+	var msg = this.name ?
+		'You called the mocha subgenerator with the argument ' + this.name + '.' :
+		'You called the mocha subgenerator. Please provide a name for your test.';
+
+	logger.green(msg);
 
 	this.on('end', function() {
 		logger.green('wooooooooooooooha! We are done. (;');
 	})
 };
 
-util.inherits(MochaGenerator, yeoman.generators.NamedBase);
+util.inherits(MochaGenerator, yeoman.generators.Base);
+
+MochaGenerator.prototype.askFor = function askFor() {
+	if (!this.name) {
+		var cb = this.async();
+
+		this.prompt([{
+			name: 'name',
+			message: 'What is the name of the test?',
+		}], function(ans) {
+			this.name = ans.name;
+
+			cb();
+		}.bind(this));
+	}
+};
+
 
 MochaGenerator.prototype.readPackageJson = function readPackageJson() {
 	logger.yellow('Reading package.json ...');
