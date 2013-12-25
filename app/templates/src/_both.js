@@ -13,14 +13,14 @@ if (typeof define !== 'function') { var define = require('amdefine')(module) }
 /* jshint ignore:end */
 
 define(<%= JSON.stringify( _.keys(bowerDependencies) ) %>, function (<%= _(bowerDependencies).keys().map(_.classify).value().join(', ') %>) {
-    'use strict';
+	'use strict';
 
-    console.log('<%= _.classify(name) %> running!');
+	console.log('<%= _.classify(name) %> running!');
 
-    var <%= _.classify(name) %> = function <%= _.classify(name) %>() {
+	var <%= _.classify(name) %> = function <%= _.classify(name) %>() {
 
-    };
+	};
 
 
-    return <%= _.classify(name) %>;
+	return <%= _.classify(name) %>;
 });

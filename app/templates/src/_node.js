@@ -10,10 +10,12 @@
 
 'use strict';
 
+console.log('<%= name %> running');
+
 <% _.each(npmDependencies, function (source, dependency) { %>
 var <%= _.classify(dependency) %> = require('<%= dependency %>');
 <% }); %>
 
-exports.awesome = function() {
-	return 'awesome';
+exports.<%= name %> = function <%= name %>() {
+	return 'awesome!';
 };

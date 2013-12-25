@@ -9,9 +9,10 @@ var yeoman = require('yeoman-generator'),
 var PackageGenerator = module.exports = function PackageGenerator(args, options, config) {
 	yeoman.generators.Base.apply(this, arguments);
 
-
 	this.on('end', function () {
-		logger.green('Everything set up! Try invoking grunt ...');
+		logger.green('----------------------------------------------');
+		logger.green('-- Everything set up! Try invoking grunt (; --');
+		logger.green('----------------------------------------------');
 	});
 
 	this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -64,6 +65,8 @@ Returns a string that describes the environment type.
 */
 
 ///////// Private methods //////////
+
+
 
 
 

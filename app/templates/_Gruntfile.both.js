@@ -71,13 +71,13 @@ module.exports = function (grunt) {
 
 			// src
 			src: {
-				src: ['src/<%= name %>.js']
+				src: ['src/**/*.js']
 			}
 		},
 
 		watch: {
 			live: {
-				files: ['amdconfig.js', 'src/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
+				files: ['amdconfig.js', 'src/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
 				options: {
 					livereload: true
 				},
@@ -175,5 +175,5 @@ module.exports = function (grunt) {
 	[2] Starts watching files.
 	*/
 
-	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'simplemocha', 'watch:live']);
+	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'simplemocha', 'live']);
 };
