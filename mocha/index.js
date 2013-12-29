@@ -49,6 +49,9 @@ MochaGenerator.prototype.readPackageJson = function readPackageJson() {
 
 	// save the component name
 	this.moduleName = pkg.name;
+
+	// save the main file path
+	this.npmMain = pkg.main;
 };
 /**
 Reads package.json file in order to get the module name.

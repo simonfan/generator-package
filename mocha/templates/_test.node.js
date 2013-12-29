@@ -2,7 +2,7 @@
 
 var should = require('should');
 
-var <%= _.classify(moduleName) %> = require('../src/<%= moduleName %>');
+var <%= _.classify(moduleName) %> = require('../<%= npmMain %>');
 
 describe('<%= _.classify(moduleName) %> <%= name %>', function () {
 	beforeEach(function (done) {

@@ -2,7 +2,7 @@
 
 	var mod = typeof define !== 'function' ?
 		// node
-		'../src/<%= moduleName %>' :
+		'../<%= npmMain %>' :
 		// browser
 		'<%= moduleName %>',
 		// dependencies for the test
