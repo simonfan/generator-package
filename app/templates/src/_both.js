@@ -12,10 +12,12 @@
 if (typeof define !== 'function') { var define = require('amdefine')(module) }
 /* jshint ignore:end */
 
-define(<%= JSON.stringify( _.keys(bowerDependencies) ) %>, function (<%= _(bowerDependencies).keys().map(_.classify).value().join(', ') %>) {
+define(function (require, exports, module) {
 	'use strict';
 
-	console.log('<%= _.classify(name) %> running!');
+	<% _.each(bowerDependencies, function (source, dependency) { %>
+	var <%= _.classify(dependency) %> = require('<%= dependency %>');
+	<% }); %>
 
 	var <%= _.classify(name) %> = function <%= _.classify(name) %>() {
 
