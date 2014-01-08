@@ -24,6 +24,9 @@ module.exports = function (grunt) {
 		bower: {
 			target: {
 				rjsConfig: 'amdconfig.js',
+				options: {
+					baseUrl: './src'
+				}
 			}
 		},
 
@@ -97,11 +100,11 @@ module.exports = function (grunt) {
 					// base url where to look for module files
 					// and relative to which the module paths will be defined
 					// (must coincide with that defined in mainConfigFile)
-					baseUrl: './',
+					baseUrl: './src',
 					// module name
 					name: '<%= name %>',
 					// output here
-					out: 'built/<%= name %>.js',
+					out: './built/<%= name %>.js',
 					// config file
 					mainConfigFile: 'amdconfig.js',
 
@@ -116,6 +119,10 @@ module.exports = function (grunt) {
 					excludeShallow: [],
 
 					optimize: 'uglify2',
+
+					pragmas: {
+						exclude: true,
+					},
 				}
 			},
 

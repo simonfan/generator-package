@@ -1,6 +1,6 @@
 {
     "name": "<%= name %>",
-    "main": "src/<%= name %>.js",
+    "main": "built/<%= name %>.js",
     "version": "0.0.0",
     "description": "<%= description %>",
 

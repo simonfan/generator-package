@@ -304,7 +304,7 @@ Create needed stuff for yui docs.
 PackageGenerator.prototype.src = function src() {
 	this.mkdir('src');
 
-	var file = 'src/' + this.name + '.js';
+	var file = 'src/index.js';
 
 	if (this._environment(['node', 'browser'])) {
 		// both
@@ -340,6 +340,8 @@ PackageGenerator.prototype.projectfiles = function projectfiles() {
 
 	this.copy('editorconfig', '.editorconfig');
 	this.copy('jshintrc', '.jshintrc');
+
+	this.copy('travis.yml', '.travis.yml');
 };
 /**
 

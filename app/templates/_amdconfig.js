@@ -2,17 +2,17 @@ require.config({
 	// cache busting
 	urlArgs: 'bust=' + Math.random(),
 	// base url is the root.
-	baseUrl: '/',
+	baseUrl: '/src',
 	// remember: paths are relative to the / root.
 	paths: {
-		requirejs: 'bower_components/requirejs/requirejs',
-		text: 'bower_components/requirejs-text/text',
+		requirejs: '../bower_components/requirejs/requirejs',
+		text: '../bower_components/requirejs-text/text',
 
-		mocha: 'node_modules/mocha/mocha',
-		should: 'node_modules/should/should',
+		mocha: '../node_modules/mocha/mocha',
+		should: '../node_modules/should/should',
 
 		// the module
-		'<%= name %>': 'src/<%= name %>',
+		'<%= name %>': 'index',
 	},
 
 	// predefined shims... (we already know they are needed)
