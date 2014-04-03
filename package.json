@@ -1,6 +1,6 @@
 {
   "name": "generator-package",
-  "version": "0.2.1",
+  "version": "0.2.4",
   "description": "Generates requirejs and cjs packages. Also provides a package that suits both.",
   "keywords": [
     "yeoman-generator",
