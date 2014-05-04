@@ -263,14 +263,8 @@ PackageGenerator.prototype.tests = function tests() {
 
 	this.mkdir('test');
 
-	// if the module is for browser environment,
-	// create index.html file
-	if (this._environment('browser')) {
-		this.template('test/_index.html', 'test/index.html');
-	}
-
 	this.invoke('package:mocha', {
-		args: ['base'],
+		args: ['basics'],
 	}, cb);
 };
 /**

@@ -57,59 +57,81 @@ MochaGenerator.prototype.readPackageJson = function readPackageJson() {
 Reads package.json file in order to get the module name.
 */
 
-/**
- * Checks if the environment is node.js or browser / browser && node.js.
- * Do that by checking if an 'index.html' is in the /test dir.
- */
-MochaGenerator.prototype.checkEnvironment = function checkEnvironment() {
-
-	logger.green('Checking out the environment for which this module was made for...')
-
-	var cb = this.async(),
-		indexHtmlPath = path.join(this.destinationRoot(), 'test/index.html');
-
-	fs.readFile(indexHtmlPath, function(err, data) {
-		this.environment = err ? 'node' : 'browser';
-
-		logger.green('Ok, got it: ' + this.environment);
-
-		cb();
-	}.bind(this));
-};
-
 
 MochaGenerator.prototype.testFile = function testFile() {
 	logger.green('Creating a test file...');
 
-	var template = this.environment === 'node' ? '_test.node.js' : '_test.browser.js';
-
-	this.template(template, 'test/' + this.name + '.js');
+	this.template('_test.js', 'test/' + this.name + '.js');
 };
 /**
 Create the test file.
 */
 
+
 /**
- * If environment is browser, create test.json file.
+ *
+ * Creates a dummy fixture.html on destination.
+ * ONLY IF NO FIXTURE IS FOUND.
+ *
  */
-MochaGenerator.prototype.testsJson = function testsJson() {
+MochaGenerator.prototype.fixtureHtml = function fixtureHtml() {
 
-	if (this.environment === 'browser') {
+	var done = this.async();
 
-		// get all names of the files that are under '/test/qunit/tests/'.
-		var dest = this.destinationRoot(),
-			files = fs.readdirSync(path.join(dest, 'test'));
+	var fixturePath = path.join(this.destinationRoot(), 'test/fixture.html');
 
-		// remove non-.js files
-		files = this._.filter(files, function(f) {
-			return /\.js$/.test(f);
-		});
+	// check if there is a fixture written
+	fs.readFile(fixturePath, function (err, data) {
 
-		logger.yellow('Rewriting \'test/tests.json\' ...');
-		fs.writeFileSync(path.join(dest, 'test/tests.json'), JSON.stringify(files));
-	}
+		// only do stuff if no file is there
+		if (err) {
+			logger.red('Creating a dummy fixture file');
+
+			fs.writeFileSync(fixturePath, '<div> Place whatever html you need here </div>');
+		}
+
+		done();
+
+	});
+
+};
+
+
+MochaGenerator.prototype.testsHtml = function testsHtml() {
+	// [1] get all names of the files that are under '/test/qunit/tests/'.
+	var dest = this.destinationRoot(),
+		files = fs.readdirSync(path.join(dest, 'test'));
+
+	// [1.1] remove non-.js files
+	files = this._.filter(files, function(f) {
+		return /\.js$/.test(f);
+	});
+
+	// [1.2] add '/test/' prefix to files
+	files = this._.map(files, function (f) {
+		return path.join('/test', f);
+	});
+
+	// [2] get the _index.html template file
+	var src = this.sourceRoot(),
+		templateString = this.readFileAsString(path.join(src, '_index.html'));
+
+	// [3] get the fixture html
+//	var fixture = this.readFileAsString(path.join(this.destinationRoot(), 'test', 'fixture.html'))
+
+	// do the templating by ourselves, as we must overwrite the file.
+	logger.red('--------WARNING-------');
+	logger.red('--------WARNING-------');
+	logger.red('--------WARNING-------');
+	logger.red('The new package generator overwrites the default /test/index.html.')
+//	logger.red('If you have any fixtures there, please move them to the fixtures.html file.');
+	logger.red('IF YOU HAVE NOT DONE THAT, REFUSE OVERWRITING HERE.')
+	this.template('_index.html', 'test/index.html', {
+		files: JSON.stringify(files),
+	//	fixture: fixture,
+	});
 };
 /**
-Creates or Updates the '/test/tests.json' file, which basically contains
+Creates or Updates the '/test/index.html' file, which contains
 an array with names of the test files.
 */

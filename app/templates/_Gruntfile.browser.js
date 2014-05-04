@@ -64,6 +64,12 @@ module.exports = function (grunt) {
 			}
 		},
 
+
+		concurrent: {
+			target: ['connect', 'watch']
+		},
+
+
 		watch: {
 			live: {
 				files: ['amdconfig.js', 'src/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
@@ -167,6 +173,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-concurrent');
 
 	grunt.loadNpmTasks('grunt-bower-requirejs');
 	/**
@@ -174,24 +181,6 @@ module.exports = function (grunt) {
 	configuration script (amdconfig.js).
 	*/
 
-	/**
-	Auxiliary task that starts a server in a child process.
-	*/
-	grunt.registerTask('child-process-server', function () {
-		// start the server on a child process
-		// so that it does not block the thread.
-		grunt.util.spawn({
-			cmd: 'grunt',
-			args: ['connect']
-		});
-	});
 
-	// full live
-	grunt.registerTask('live', ['child-process-server', 'watch:live']);
-	/**
-	[1] Starts a server as a child process
-	[2] Starts watching files.
-	*/
-
-	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'live']);
+	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'concurrent']);
 };
