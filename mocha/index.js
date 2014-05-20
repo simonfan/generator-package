@@ -112,6 +112,9 @@ MochaGenerator.prototype.testsHtml = function testsHtml() {
 		return path.join('/test', f);
 	});
 
+	// [1.3] add 'text!/test/fixture.html' to file dependencies array
+	files.unshift('text!/test/fixture.html');
+
 	// [2] get the _index.html template file
 	var src = this.sourceRoot(),
 		templateString = this.readFileAsString(path.join(src, '_index.html'));
