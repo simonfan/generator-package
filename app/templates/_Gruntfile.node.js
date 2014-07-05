@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 			//	description: '',
 			// 	url: '',
 				options: {
-					paths: 'src/',
+					paths: 'js/',
 				//	themedir: 'path/to/custom/theme/',
 					outdir: 'docs/'
 				}
@@ -52,13 +52,13 @@ module.exports = function (grunt) {
 
 			// src
 			src: {
-				src: ['src/**/*.js']
+				src: ['js/**/*.js']
 			}
 		},
 
 		watch: {
 			live: {
-				files: ['src/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
+				files: ['js/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
 				tasks: ['jshint:gruntfile', 'jshint:src', 'simplemocha']
 			}
 		},

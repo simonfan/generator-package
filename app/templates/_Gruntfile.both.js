@@ -25,7 +25,7 @@ module.exports = function (grunt) {
 			target: {
 				rjsConfig: 'amdconfig.js',
 				options: {
-					baseUrl: './src'
+					baseUrl: './js'
 				}
 			}
 		},
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
 			//	description: '',
 			// 	url: '',
 				options: {
-					paths: 'src/',
+					paths: 'js/',
 				//	themedir: 'path/to/custom/theme/',
 					outdir: 'docs/'
 				}
@@ -72,9 +72,9 @@ module.exports = function (grunt) {
 				src: ['test/**/*.js']
 			},
 
-			// src
-			src: {
-				src: ['src/**/*.js']
+			// js
+			js: {
+				src: ['js/**/*.js']
 			}
 		},
 
@@ -84,11 +84,11 @@ module.exports = function (grunt) {
 
 		watch: {
 			live: {
-				files: ['amdconfig.js', 'src/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
+				files: ['amdconfig.js', 'js/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
 				options: {
 					livereload: true
 				},
-				tasks: ['jshint:gruntfile', 'jshint:src', 'simplemocha']
+				tasks: ['jshint:gruntfile', 'jshint:js', 'simplemocha']
 			},
 
 			bower: {
@@ -105,7 +105,7 @@ module.exports = function (grunt) {
 					// base url where to look for module files
 					// and relative to which the module paths will be defined
 					// (must coincide with that defined in mainConfigFile)
-					baseUrl: './src',
+					baseUrl: './js',
 					// module name
 					name: '<%= name %>',
 					// output here
@@ -136,7 +136,7 @@ module.exports = function (grunt) {
 					// base url where to look for module files
 					// and relative to which the module paths will be defined
 					// (must coincide with that defined in mainConfigFile)
-					baseUrl: './src',
+					baseUrl: './js',
 					// module name
 					name: '<%= name %>',
 					// output here
@@ -186,5 +186,5 @@ module.exports = function (grunt) {
 	// mocha tests
 	grunt.registerTask('mocha', 'simplemocha');
 
-	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:src', 'requirejs', 'simplemocha', 'concurrent']);
+	grunt.registerTask('default', ['bower', 'yuidoc', 'jshint:gruntfile', 'jshint:js', 'requirejs', 'simplemocha', 'concurrent']);
 };

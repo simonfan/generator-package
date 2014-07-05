@@ -2,7 +2,7 @@ require.config({
 	// cache busting
 	urlArgs: 'bust=' + Math.random(),
 	// base url is the root.
-	baseUrl: '/src',
+	baseUrl: '/js',
 	// remember: paths are relative to the / root.
 	paths: {
 		requirejs: '../bower_components/requirejs/requirejs',

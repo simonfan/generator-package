@@ -298,19 +298,19 @@ Create needed stuff for yui docs.
 PackageGenerator.prototype.src = function src() {
 	this.mkdir('src');
 
-	var file = 'src/index.js';
+	var file = 'js/index.js';
 
 	if (this._environment(['node', 'browser'])) {
 		// both
-		this.template('src/_both.js', file);
+		this.template('js/_both.js', file);
 
 	} else if (this._environment('node')) {
 		// node only
-		this.template('src/_node.js', file);
+		this.template('js/_node.js', file);
 
 	} else if (this._environment('browser')) {
 		// browser
-		this.template('src/_amd.js', file);
+		this.template('js/_amd.js', file);
 
 	}
 };

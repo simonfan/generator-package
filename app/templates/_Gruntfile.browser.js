@@ -37,7 +37,7 @@ module.exports = function (grunt) {
 			//	description: '',
 			// 	url: '',
 				options: {
-					paths: 'src/',
+					paths: 'js/',
 				//	themedir: 'path/to/custom/theme/',
 					outdir: 'docs/'
 				}
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
 
 			// src
 			src: {
-				src: ['src/**/*.js']
+				src: ['js/**/*.js']
 			}
 		},
 
@@ -72,7 +72,7 @@ module.exports = function (grunt) {
 
 		watch: {
 			live: {
-				files: ['amdconfig.js', 'src/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
+				files: ['amdconfig.js', 'js/**/*.js', 'test/**', 'demo/**', 'docs/**', 'Gruntfile.js'],
 				options: {
 					livereload: true
 				},
@@ -153,7 +153,7 @@ module.exports = function (grunt) {
 			project: {
 				options: {
 					// source files
-					appDir: 'src/',
+					appDir: 'js/',
 					// output here:
 					dir: 'built/project/',
 					mainConfigFile: 'amdconfig.js',
